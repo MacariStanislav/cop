@@ -1,8 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../utils/routes";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleForm } from "../../features/user/userSlice";
 
 const Header = () => {
+  const dispatch =useDispatch();
+  const{currentUser} =useSelector(({user})=> user )
+
+  const handleClick =()=>{
+    if(!currentUser)dispatch(toggleForm(true));
+
+    
+  }
   return (
     <div className="header">
       <div className="logo">
@@ -11,7 +21,7 @@ const Header = () => {
         </Link>
       </div>
       <div className="info">
-        <div className="user">
+        <div className="user" onClick={handleClick}>
           <div className="avatart" style={{ backgroundImage: "url()" }} />
         <div className="username">Guest</div>
         </div>
