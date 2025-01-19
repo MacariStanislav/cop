@@ -15,6 +15,42 @@ export const createUser =createAsyncThunk(
     }
     }
 );
+const addCurrentUser= (state, {payload})=>{
+    state.currentUser=payload;}
+
+export const loginUser =createAsyncThunk(
+    "users/loginUser",
+    async(payload , thunkAPI )=>{
+    try {
+        const res = await axios.post(`${BASE_URL}/auth/login`, payload);
+    
+        const login =await axios(`${BASE_URL}/auth/profile`, {
+      headers:{
+        Authorization:`Bearer ${res.data.access_token}`     
+     }  
+    });
+        return login.data;
+
+    }   catch(err){
+        console.log(err);
+        return thunkAPI.rejectWithValue(err);
+    }
+    }
+);
+
+export const updateUser =createAsyncThunk(
+    "users/updateUser",
+    async(payload , thunkAPI )=>{
+    try {
+        const res = await axios.put(`${BASE_URL}/users/${payload.id}`, payload);
+        return res.data;
+
+    }   catch(err){
+        console.log(err);
+        return thunkAPI.rejectWithValue(err);
+    }
+    }
+);
 
 const userSlice = createSlice({
     name:'user',
@@ -42,22 +78,18 @@ state.cart =newCart;
         },
         toggleForm:(state, {payload})=>{
             state.showForm=payload;
-        }
+        },
+        toggleFormType:(state, {payload})=>{
+            state.showType=payload;
     },
+},
     extraReducers:(builder)=>{
-        // builder.addCase (getCategories.pending, (state)=>{
-        //     state.isLoading=true;
-        // });
-        builder.addCase (createUser.fulfilled, (state, {payload})=>{
-            state.currentUser=payload;
-          
-        });
-        // builder.addCase (getCategories.rejected, (state)=>{
-        //     state.isLoading=false;
+        builder.addCase (createUser.fulfilled,addCurrentUser);
+        builder.addCase (loginUser.fulfilled,addCurrentUser);
+        builder.addCase (updateUser.fulfilled,addCurrentUser);
         
-        // });
     },
 });
 
-export const {addItemToCart, toggleForm} =userSlice.actions;
+export const {addItemToCart, toggleForm , toggleFormType} =userSlice.actions;
 export default userSlice.reducer;
