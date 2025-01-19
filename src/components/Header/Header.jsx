@@ -4,6 +4,7 @@ import { ROUTES } from "../../utils/routes";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleForm } from "../../features/user/userSlice";
 import { useGetProductsQuery } from "../../features/api/apiSlice";
+import LOGO from '../../img/logo/LOGO 1.svg'
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -26,20 +27,20 @@ const Header = () => {
     else navigate(ROUTES.PROFILE);
   };
   const handleSearch = ({ target: { value } }) => {
-    setSearchValue(value);
+  setSearchValue(value);
   };
   return (
     <div className="header">
       <div className="logo">
         <Link to={ROUTES.HOME}>
-          <img src="" alt="logo" />
+          <img src={LOGO}/>
         </Link>
       </div>
       <div className="info">
         <div className="user" onClick={handleClick}>
           <div
             className="avatart"
-            style={{ backgroundImage: "url(${values.avatar}})" }}
+            style={{ backgroundImage: `url(${values.avatar}})` }}
           />
           <div className="username">{values.name}</div>
         </div>
