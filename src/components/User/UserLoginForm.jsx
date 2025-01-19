@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../features/user/userSlice";
 
-const UserSignupForm = ({toggleCurrentFormType,closeForm}) => {
+const UserLoginForm = ({toggleCurrentFormType,closeForm}) => {
   const dispatch=useDispatch();
   const [values, setValues] = useState({
     email: "",
@@ -65,4 +65,4 @@ const UserSignupForm = ({toggleCurrentFormType,closeForm}) => {
   );
 };
 
-export default UserSignupForm;
+export default UserLoginForm;

@@ -76,6 +76,9 @@ if(found) {
 } else newCart.push({...payload, quantity: 1 });
 state.cart =newCart;
         },
+        removeItemFromCart:(state,{payload})=>{
+            state.cart =state.cart.filter(({id})=>id !== payload)
+        },
         toggleForm:(state, {payload})=>{
             state.showForm=payload;
         },
@@ -91,5 +94,5 @@ state.cart =newCart;
     },
 });
 
-export const {addItemToCart, toggleForm , toggleFormType} =userSlice.actions;
+export const {addItemToCart, toggleForm , toggleFormType,removeItemFromCart} =userSlice.actions;
 export default userSlice.reducer;
